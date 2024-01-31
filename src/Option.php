@@ -244,7 +244,7 @@ class Option
 
     public function getTypeClass()
     {
-        $class = 'GetOptionKit\\ValueType\\'.ucfirst($this->isa).'Type';
+        $class = 'GetOptionKit\\ValueType\\'.(is_null($this->isa) ? '' : ucfirst($this->isa)).'Type';
         if (class_exists($class, true)) {
             return new $class($this->isaOption);
         }
@@ -261,7 +261,7 @@ class Option
     {
         $val = $value;
 
-        if ($isa = ucfirst((string) $this->isa)) {
+        if ($isa = (is_null($this->isa) ? '' : ucfirst($this->isa))) {
             $type = $this->getTypeClass();
             if ($type->test($value)) {
                 $val = $type->parse($value);
